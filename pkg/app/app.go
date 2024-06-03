@@ -3,7 +3,7 @@ package app
 import (
 	"fmt"
 
-	"github.com/keksShmeks1/notGetter/pkg/client"
+	"github.com/keksShmeks1/notRate/pkg/client"
 )
 
 type Server struct {

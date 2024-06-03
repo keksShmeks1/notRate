@@ -4,8 +4,8 @@ import (
 	"flag"
 	"log"
 
-	"github.com/keksShmeks1/notGetter/pkg/app"
-	"github.com/keksShmeks1/notGetter/pkg/utils"
+	"github.com/keksShmeks1/notRate/pkg/app"
+	"github.com/keksShmeks1/notRate/pkg/utils"
 )
 
 func main() {

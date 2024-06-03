@@ -1,4 +1,4 @@
-module github.com/keksShmeks1/notGetter
+module github.com/keksShmeks1/notRate
 
 go 1.22.3
 
