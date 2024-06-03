@@ -13,7 +13,10 @@ const envPath = "/Users/keksShmeks/fun/notGetter/.env"
 
 func ChangeEnvAmount(amount int64) error {
 	strAmount := fmt.Sprint(amount)
-	godotenv.Write(map[string]string{"NOTAMOUNT": strAmount}, envPath)
+	err := godotenv.Write(map[string]string{"NOTAMOUNT": strAmount}, envPath)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
