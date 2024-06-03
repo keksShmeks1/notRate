@@ -1,40 +1,42 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"log"
-	"os"
-	"strconv"
 
-	"github.com/joho/godotenv"
-	"github.com/keksShmeks1/notGetter/pkg/client"
+	"github.com/keksShmeks1/notGetter/pkg/app"
+	"github.com/keksShmeks1/notGetter/pkg/utils"
 )
 
-func init() {
-	// loads values from .env into the system
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("No .env file found")
-	}
-}
-
 func main() {
-	amountStr, flag := os.LookupEnv("NOTAMOUNT")
-	if !flag {
-		log.Fatal("No field named NOTAMOUNT")
-		return
+
+	var amount int64
+
+	var srv app.Server
+
+	flag.Int64Var(&amount, "ch", 0, "change amount of not u have")
+
+	flag.Parse()
+
+	if amount > 0 {
+		err := utils.ChangeEnvAmount(amount)
+		if err != nil {
+			log.Fatal("Can't change NOT amount")
+		}
+		log.Print("Not amount successfully changed")
+		srv = *app.InitServer(amount)
 	}
 
-	amount, err := strconv.ParseInt(amountStr, 10, 64)
+	envAmount, err := utils.GetEnvAmount()
 	if err != nil {
-		log.Fatal("No field named NOTAMOUNT")
-		return
+		log.Fatal(err)
 	}
 
-	rate, err := client.GetNotRate(amount)
+	srv = *app.InitServer(envAmount)
+
+	err = srv.GetRate()
 	if err != nil {
-		fmt.Print(err.Error())
+		log.Fatal(err)
 	}
-
-	fmt.Print(rate)
 
 }
